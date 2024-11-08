@@ -65,3 +65,52 @@ describe "group of tests for PARTE 2" {
     assert.throwsExceptionWithType(new DomainException(),{milena.realizarRutina()})
   }
 }
+
+describe "group of tests for PARTE 3" {
+    //PERSONAS
+  const nicolas = new PacienteResistente(edad = 40, nivelFortalezaMuscular = 20, nivelDolor = 10, 
+    rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
+
+  const victoria = new PacienteCaprichoso(edad = 30, nivelFortalezaMuscular = 40, nivelDolor = 10, 
+    rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
+
+  const julian = new PacienteCaprichoso(edad = 20, nivelFortalezaMuscular = 50, nivelDolor = 54, 
+    rutinaAsignada = [bicicletaRoja, magnetoVerde, bicicleta])
+
+  const zoe = new PacienteRapidaCuracion(edad = 50, nivelFortalezaMuscular = 40, nivelDolor = 14, 
+    rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
+
+  //APARATOS
+  const magneto = new Magneto()
+  const magnetoVerde = new Magneto(color = "verde")
+  const bicicleta = new Bicicleta()
+  const bicicletaRoja = new Bicicleta(color = "rojo")
+  const minitramp = new Minitramp()
+
+  test "nicolas puede hacer su rutina, al terminarla acaba con dolor 1.8 y fortaleza 34" {
+    nicolas.realizarRutina()
+    assert.that(nicolas.puedeRealizarSuRutina())
+    assert.equals(1.8, nicolas.nivelDolor())
+    assert.equals(34, nicolas.nivelFortalezaMuscular())
+  }
+
+  test "victoria no puede realizar su rutina, si intenta hacer lanza error" {
+    assert.notThat(victoria.puedeRealizarSuRutina())
+    assert.throwsExceptionWithType(new DomainException(), {victoria.realizarRutina()})
+  }
+
+  test "julian puede hacer su rutina, al terminarla acaba con 29.3 de dolor y fortaleza 62" {
+    julian.realizarRutina()
+    assert.that(julian.puedeRealizarSuRutina())
+    assert.equals(29.3, julian.nivelDolor())
+    assert.equals(62, julian.nivelFortalezaMuscular())
+  }
+
+  test "zoe puede hacer su rutina, si le asignamos 2 de valor de recuperacion al terminar su rutina acaba con 3.4 de dolor y fortaleza 51" {
+    zoe.modificarValorDeRecuperacionA(2)
+    zoe.realizarRutina()
+    assert.that(zoe.puedeRealizarSuRutina())
+    assert.equals(3.4, zoe.nivelDolor())
+    assert.equals(51, zoe.nivelFortalezaMuscular())
+  }
+}

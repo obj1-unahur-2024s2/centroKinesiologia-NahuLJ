@@ -1,4 +1,7 @@
 class Aparato {
+  var color = "blanco"
+
+  method color() = color
   
   method realizarTratamientoEn(unPaciente){
     if(not self.puedeSerUsadoPor(unPaciente)){

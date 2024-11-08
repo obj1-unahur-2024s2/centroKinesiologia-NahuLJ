@@ -35,3 +35,34 @@ class Paciente {
     rutinaAsignada.forEach({aparato => aparato.realizarTratamientoEn(self)})
   }
 }
+
+class PacienteResistente inherits Paciente {
+
+  override method realizarRutina(){
+    super()
+    self.aumentarFortalezaMuscularEn(rutinaAsignada.size())
+  }
+}
+
+class PacienteCaprichoso inherits Paciente {
+  
+  override method realizarRutina(){
+    super()
+    super()
+  }
+
+  override method puedeRealizarSuRutina() = super() and rutinaAsignada.any({aparato => aparato.color() == "rojo"})
+}
+
+class PacienteRapidaCuracion inherits Paciente {
+  var valorRecuperacion = 3
+
+  override method realizarRutina(){
+    super()
+    self.disminuirNivelDeDolorEn(valorRecuperacion)
+  }
+
+  method modificarValorDeRecuperacionA(unValor){
+    valorRecuperacion = unValor
+  }
+}
