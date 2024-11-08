@@ -2,6 +2,7 @@ class Paciente {
   const edad
   var nivelFortalezaMuscular
   var nivelDolor
+  const rutinaAsignada = []
 
   method edad() = edad
 
@@ -25,4 +26,12 @@ class Paciente {
     nivelDolor += unaCantidad
   }
 
+  method puedeRealizarSuRutina() = rutinaAsignada.all({aparato => aparato.puedeSerUsadoPor(self)})
+
+  method realizarRutina(){
+    if (not self.puedeRealizarSuRutina()){
+      self.error("el paciente no puede realizar su rutina")
+    }
+    rutinaAsignada.forEach({aparato => aparato.realizarTratamientoEn(self)})
+  }
 }

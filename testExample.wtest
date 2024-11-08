@@ -41,3 +41,27 @@ describe "group of tests for PARTE 1" {
     assert.equals(24, leonardo.nivelFortalezaMuscular())
   }
 }
+
+describe "group of tests for PARTE 2" {
+  //PERSONAS
+  const leonardo = new Paciente(edad = 40, nivelFortalezaMuscular = 20, nivelDolor = 10, 
+    rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
+  const milena = new Paciente(edad = 3, nivelFortalezaMuscular = 50, nivelDolor = 30, 
+    rutinaAsignada = [magneto,bicicleta])
+
+  const magneto = new Magneto()
+  const bicicleta = new Bicicleta()
+  const minitramp = new Minitramp()
+
+  test "leonardo puede hacer la rutina, y al terminarla su dolor baja a 1.8 y su fortaleza sube a 30" {
+    leonardo.realizarRutina()
+    assert.that(leonardo.puedeRealizarSuRutina())
+    assert.equals(1.8,leonardo.nivelDolor())
+    assert.equals(30,leonardo.nivelFortalezaMuscular())
+  }
+
+  test "milena no puede realizar su rutina, si intenta hacerla se lanza un error" {
+    assert.notThat(milena.puedeRealizarSuRutina())
+    assert.throwsExceptionWithType(new DomainException(),{milena.realizarRutina()})
+  }
+}
