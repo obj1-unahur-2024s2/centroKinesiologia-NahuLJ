@@ -129,15 +129,22 @@ describe "group of tests for PARTE 4" {
   const zoe = new PacienteRapidaCuracion(edad = 50, nivelFortalezaMuscular = 40, nivelDolor = 14, 
     rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
 
-  //APARATOS
+  //APARATOS NUEVOS
   const magneto = new Magneto()
   const magnetoVerde = new Magneto(color = "verde")
   const bicicleta = new Bicicleta()
   const bicicletaRoja = new Bicicleta(color = "rojo")
   const minitramp = new Minitramp()
+  
+  //APARATOS QUE NECESITAN MANTENIMIENTO
+  const magnetoViejo = new Magneto(puntosImantacion = 99)
+  const bicicletaVieja = new Bicicleta(cantidadDesajustesTornillos = 10, cantidadPerdidasAceite = 5)
 
   method initialize(){
-    centroKinesiologico.agregarAparatos([magneto,magnetoVerde,bicicleta,bicicletaRoja,minitramp])
+    centroKinesiologico.agregarAparatos(
+      [magneto,magnetoVerde,bicicleta,bicicletaRoja,minitramp,
+      magnetoViejo, bicicletaVieja]
+    )
     centroKinesiologico.agregarPacientes([nicolas,victoria,julian,zoe])
   }
 
@@ -150,6 +157,24 @@ describe "group of tests for PARTE 4" {
   }
 
   test "la cantidad de pacientes que no pueden hacer su rutina es 1" {
-    assert.equals(1, centroKinesiologico.cantidadpPacientesQueNoPuedenHacerSuRutina())
+    assert.equals(1, centroKinesiologico.cantidadPacientesQueNoPuedenHacerSuRutina())
+  }
+
+  //PARTE 5
+  test "el centro no esta en condiciones optimas" {
+    assert.notThat(centroKinesiologico.estaEnOptimasCondiciones())
+  }
+
+  test "el centro no esta complicado" {
+    assert.notThat(centroKinesiologico.estaComplicado())
+  }
+
+  test "si registra el centro una visita tecnica, se realiza en la bicicletaVieja, y el magnetoViejo" {
+    centroKinesiologico.registrarVisitaTecnica()
+    assert.equals(599, magnetoViejo.puntosImantacion())
+    assert.equals(0, bicicletaVieja.cantidadDesajustesTornillos())
+    assert.equals(0, bicicletaVieja.cantidadPerdidasAceite())
+    assert.that(centroKinesiologico.estaEnOptimasCondiciones())
+    
   }
 }
