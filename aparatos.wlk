@@ -42,3 +42,24 @@ class Minitramp inherits Aparato {
 
   override method puedeSerUsadoPor(unPaciente) = unPaciente.nivelDolor() < 20
 }
+
+object centroKinesiologico {
+  const aparatos = []
+  const pacientes = []
+
+
+  method agregarAparatos(unosPacientes){
+    aparatos.addAll(unosPacientes)
+  }
+
+  method agregarPacientes(unosPacientes){
+    pacientes.addAll(unosPacientes)
+  }
+
+  method coloresDeLasMaquinas() = aparatos.map({aparato => aparato.color()}).asSet()
+
+  method pacientesMenores() = pacientes.filter({paciente => paciente.edad() < 8})
+
+  method cantidadpPacientesQueNoPuedenHacerSuRutina() = 
+    pacientes.filter({paciente => not paciente.puedeRealizarSuRutina()}).size()
+}

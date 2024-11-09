@@ -67,7 +67,7 @@ describe "group of tests for PARTE 2" {
 }
 
 describe "group of tests for PARTE 3" {
-    //PERSONAS
+  //PERSONAS
   const nicolas = new PacienteResistente(edad = 40, nivelFortalezaMuscular = 20, nivelDolor = 10, 
     rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
 
@@ -112,5 +112,44 @@ describe "group of tests for PARTE 3" {
     assert.that(zoe.puedeRealizarSuRutina())
     assert.equals(3.4, zoe.nivelDolor())
     assert.equals(51, zoe.nivelFortalezaMuscular())
+  }
+}
+
+describe "group of tests for PARTE 4" {
+  //PERSONAS
+  const nicolas = new PacienteResistente(edad = 40, nivelFortalezaMuscular = 20, nivelDolor = 10, 
+    rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
+
+  const victoria = new PacienteCaprichoso(edad = 30, nivelFortalezaMuscular = 40, nivelDolor = 10, 
+    rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
+
+  const julian = new PacienteCaprichoso(edad = 20, nivelFortalezaMuscular = 50, nivelDolor = 54, 
+    rutinaAsignada = [bicicletaRoja, magnetoVerde, bicicleta])
+
+  const zoe = new PacienteRapidaCuracion(edad = 50, nivelFortalezaMuscular = 40, nivelDolor = 14, 
+    rutinaAsignada = [bicicleta, minitramp, bicicleta, magneto])
+
+  //APARATOS
+  const magneto = new Magneto()
+  const magnetoVerde = new Magneto(color = "verde")
+  const bicicleta = new Bicicleta()
+  const bicicletaRoja = new Bicicleta(color = "rojo")
+  const minitramp = new Minitramp()
+
+  method initialize(){
+    centroKinesiologico.agregarAparatos([magneto,magnetoVerde,bicicleta,bicicletaRoja,minitramp])
+    centroKinesiologico.agregarPacientes([nicolas,victoria,julian,zoe])
+  }
+
+  test "los colores de sus aparatos son blanco, verde y rojo" {
+    assert.equals(#{"blanco","verde","rojo"}, centroKinesiologico.coloresDeLasMaquinas())
+  }
+
+  test "el centro no tiene pacientes menores" {
+    assert.equals([], centroKinesiologico.pacientesMenores())
+  }
+
+  test "la cantidad de pacientes que no pueden hacer su rutina es 1" {
+    assert.equals(1, centroKinesiologico.cantidadpPacientesQueNoPuedenHacerSuRutina())
   }
 }
